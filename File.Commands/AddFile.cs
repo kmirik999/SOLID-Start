@@ -13,17 +13,15 @@ public class AddFileInputAction : InputAction<AddFileCommand>
     protected override string HelpString => "add a file";
 
     private readonly IFileRegistry fileRegistry;
-    private readonly IFileDomain fileDomain;
 
-    public AddFileInputAction(IFileRegistry fileRegistry, IFileDomain fileDescriptorFactory)
+    public AddFileInputAction(IFileRegistry fileRegistry)
     {
         this.fileRegistry = fileRegistry;
-        this.fileDomain = fileDescriptorFactory;
     }
 
     protected override AddFileCommand GetCommandInternal(string[] args)
     {
-        return new AddFileCommand(fileRegistry, fileDomain, args[0]);
+        return new AddFileCommand(fileRegistry, args);
     }
 }
 
@@ -31,20 +29,26 @@ public class AddFileInputAction : InputAction<AddFileCommand>
 public class AddFileCommand : Command
 {
     private readonly string filePath;
-    private readonly IFileRegistry fileRegistry;
+    private readonly string shortcut;
+    private readonly IFileRegistry registry;
     private readonly IFileDomain fileDomain;
 
-    public AddFileCommand(IFileRegistry fileRegistry, IFileDomain fileDomain, string filePath)
+    public AddFileCommand(IFileRegistry fileRegistry, string[] args)
     {
-        this.fileRegistry = fileRegistry;
-        this.fileDomain = fileDomain;
-        this.filePath = filePath;
+        this.registry = fileRegistry;
+        
+        this.filePath = args[0].ToString();
+        this.shortcut = filePath;
+        if (args.Length == 2)
+        {
+            this.shortcut = args[1].ToString();
+        }
     }
 
     public override void Execute()
     {
-        var fileDescriptor = fileDomain.CreateFileDescriptor(filePath, null); //  no shortcut 
-        fileRegistry.Add(fileDescriptor);
-        Console.WriteLine($"File {fileDescriptor.FilePath} added!");
+        
+        registry.Add(filePath, shortcut);
+        Console.WriteLine($"FileDomain {filePath} added!");
     }
 }

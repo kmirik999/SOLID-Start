@@ -8,6 +8,6 @@ public class FileDomain
     public FileDomain(string filePath, string shortcut)
     {
         FilePath = filePath;
-        Shortcut = string.IsNullOrEmpty(shortcut) ? filePath : shortcut;
+        Shortcut = shortcut;
     }
 }

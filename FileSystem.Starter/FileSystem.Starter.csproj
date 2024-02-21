@@ -11,6 +11,8 @@
     <ItemGroup>
       <ProjectReference Include="..\DI.Core\DI.Core.csproj" />
       <ProjectReference Include="..\FileSystem.Core\FileSystem.Core.csproj" />
+      <ProjectReference Include="..\FileSystem.Domain\FileSystem.Domain.csproj" />
+        <ProjectReference Include="..\File.Commands\File.Commands.csproj" />
     </ItemGroup>
 
 </Project>

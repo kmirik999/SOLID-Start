@@ -19,9 +19,14 @@ public class FileRegistry : IFileRegistry
 
     private readonly List<FileDomain> files = new List<FileDomain>();
 
-    public void Add(FileDomain fileDescriptor)
+
+
+    public FileDomain Add(string filePath, string name)
     {
+        var fileDescriptor = new FileDomain(name, filePath);
+
         files.Add(fileDescriptor);
+        return fileDescriptor;
     }
 
     public void Remove(string shortcut)

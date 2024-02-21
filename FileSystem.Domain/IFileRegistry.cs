@@ -2,9 +2,7 @@ namespace FileSystem.Domain;
 
 public interface IFileRegistry
 {
-    void Add(FileDomain fileDescriptor);
-
-    void Remove(string shortcut);
-
+    FileDomain Add(string filePath, string name);
+    void Remove(string filePath);
     List<FileDomain> GetAll();
 }
